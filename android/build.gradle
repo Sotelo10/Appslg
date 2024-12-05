@@ -1,0 +1,21 @@
+// Define los repositorios para que el proyecto pueda buscar dependencias en Google y Maven Central
+allprojects {
+    repositories {
+        google()  // Repositorio de Google para las dependencias de Firebase y otras
+        mavenCentral()  // Repositorio de Maven Central para dependencias adicionales
+    }
+}
+
+// Establece la ubicación del directorio de compilación para el proyecto principal y sus subproyectos
+rootProject.buildDir = "../build"
+
+// Configura todos los subproyectos para usar la misma carpeta de compilación
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(":app")  // Asegura que el subproyecto "app" sea evaluado
+}
+
+// Configura la tarea "clean" para eliminar la carpeta de compilación cuando se ejecute
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir  // Elimina el directorio de compilación del proyecto raíz
+}

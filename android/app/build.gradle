@@ -1,0 +1,50 @@
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    
+id 'com.google.gms.google-services'    // END: FlutterFire Configuration
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"  // Flutter plugin, debe ir después de los otros plugins
+}
+
+android {
+    namespace = "com.example.appslg"  // Cambia este valor por el nombre de tu paquete si es necesario
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8  // Es importante tener compatibilidad con Java 1.8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8  // Asegúrate de usar Java 1.8 para Kotlin
+    }
+
+    defaultConfig {
+        applicationId = "com.unica.appslg"  // Asegúrate de que coincida con el ID de la aplicación en Firebase
+        minSdk = 24  // Cambia este valor si tu app requiere una versión mínima diferente
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug  // Usa tu propia configuración de firma para la versión de lanzamiento
+        }
+    }
+}
+
+dependencies {
+    // Firebase dependencies
+    implementation 'com.google.firebase:firebase-auth:21.0.1'  // Firebase Authentication
+    implementation 'com.google.firebase:firebase-firestore:24.0.0'  // Firebase Firestore
+    implementation 'com.google.firebase:firebase-analytics:20.0.2'  // Firebase Analytics
+    implementation 'com.google.firebase:firebase-core:20.1.0'  // Firebase Core
+    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+    // Agrega más dependencias de Firebase según los servicios que vayas a usar
+}
+
+// Al final del archivo, asegúrate de tener la configuración de Firebase
+apply plugin: 'com.google.gms.google-services'  // Este plugin es necesario para inicializar Firebase
